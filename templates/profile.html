@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Работы {{ user_name }}</h2>
+{% if current_user.is_authenticated and current_user.id == user_id %}
+<form enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label for="photo">Загрузите работу</label>
+        <input type="file" name="photo" class="form-control-file" id="photo">
+    </div>
+    <div class="form-group">
+        <label for="name">Имя работы</label>
+        <input type="text" name="name" class="form-control-file" id="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{{ message }}
+{% endif %}
+
+{% for photo in photos %}
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ url_for('static', filename=photo.path) }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ photo.name }}</h5>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
